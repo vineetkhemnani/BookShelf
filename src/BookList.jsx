@@ -1,4 +1,3 @@
-import React from 'react'
 import BookCard from './BookCard'
 import ShimmerCard from './ShimmerCard'
 

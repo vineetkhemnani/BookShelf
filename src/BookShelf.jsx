@@ -21,22 +21,25 @@ const BookShelf = () => {
           Back
         </Link>
       </div>
+
+      <div className="mt-4 mx-10">
       {bookshelf.length > 0 ? (
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-          {bookshelf.map((book, index) => (
-            <BookCard
-              key={index}
-              title={book.title}
-              author={
-                book.author_name ? book.author_name.join(', ') : 'Unknown'
-              }
-              coverId={book.cover_i}
-            />
-          ))}
-        </div>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+            {bookshelf.map((book, index) => (
+              <BookCard
+                key={index}
+                title={book.title}
+                author={
+                  book.author_name ? book.author_name.join(', ') : 'Unknown'
+                }
+                coverId={book.cover_i}
+              />
+            ))}
+          </div>
       ) : (
         <p>Your bookshelf is empty.</p>
-      )}
+        )}
+      </div>
     </div>
   )
 }
