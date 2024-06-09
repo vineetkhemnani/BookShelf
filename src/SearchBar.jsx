@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react'
 import BookCard from './BookCard'
 import BookShelf from './BookShelf'
 import { Link } from 'react-router-dom'
+import BookList from './BookList'
 
 const SearchBar = () => {
   const [searchTerm, setSearchTerm] = useState('')
@@ -10,17 +11,21 @@ const SearchBar = () => {
     () => JSON.parse(localStorage.getItem('Shelf')) || []
   )
 
+  const [loading, setLoading] = useState(false)
+
   const handleInputChange = (e) => {
     setSearchTerm(e.target.value)
   }
 
   const fetchResults = async (term) => {
     try {
+      setLoading(true)
       const response = await fetch(
         `https://openlibrary.org/search.json?q=${term}&limit=10&page=1`
       )
       const data = await response.json()
       setResults(data.docs)
+      setLoading(false)
     } catch (error) {
       console.error('Error fetching search results:', error)
     }
@@ -33,6 +38,7 @@ const SearchBar = () => {
     }
 
     const debounceFetch = setTimeout(() => {
+      
       fetchResults(searchTerm)
     }, 300) // debounce delay
 
@@ -71,26 +77,7 @@ const SearchBar = () => {
           Visit BookShelf
         </Link>
       </div>
-      <div className="mt-4 mx-20">
-        {results.length > 0 ? (
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-            {results.map((result, index) => (
-              <BookCard
-                key={index}
-                title={result.title}
-                author={
-                  result.author_name ? result.author_name.join(', ') : 'Unknown'
-                }
-                notShelf
-                coverId={result.cover_i}
-                onAddToShelf={() => handleAddToShelf(result)}
-              />
-            ))}
-          </div>
-        ) : (
-          searchTerm && <p>No results found</p>
-        )}
-      </div>
+      <BookList results={results} searchTerm={searchTerm} loading={loading} handleAddToShelf={handleAddToShelf}/>
     </>
   )
 }
