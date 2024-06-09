@@ -64,20 +64,28 @@ const SearchBar = () => {
           name="search"
           value={searchTerm}
           onChange={handleInputChange}
-          className="bg-gray-100 p-2 rounded-l-md border border-gray-300 focus:outline-none focus:ring-2 focus:ring-gray-500"
+          className="bg-gray-100 p-2 rounded-l-md border border-gray-300 focus:outline-none focus:ring-2 focus:ring-gray-500 max-sm:w-20 max-sm:text-xs"
           placeholder="Search..."
         />
         <button
           onClick={handleSearch}
-          className="bg-blue-500 text-white p-2 rounded-r-md border border-blue-500 hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 mr-20"
+          className="bg-blue-500 text-white p-2 rounded-r-md border border-blue-500 hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 mr-20 max-sm:text-xs"
         >
           Search
         </button>
-        <Link to='shelf' className="bg-green-600 hover:bg-green-500 p-4 text-sm rounded-lg text-white">
+        <Link
+          to="shelf"
+          className="bg-green-600 hover:bg-green-500 p-4 text-sm rounded-lg text-white max-sm:text-xs max-sm:p-3"
+        >
           Visit BookShelf
         </Link>
       </div>
-      <BookList results={results} searchTerm={searchTerm} loading={loading} handleAddToShelf={handleAddToShelf}/>
+      <BookList
+        results={results}
+        searchTerm={searchTerm}
+        loading={loading}
+        handleAddToShelf={handleAddToShelf}
+      />
     </>
   )
 }
